@@ -129,7 +129,10 @@ public class GamePlayManager : MonoBehaviour
             {
                 _lifeController.LoseLife((int)ResourceTracker.Branch);
                 await RootController.SwitchBranch();
-                Status = GameStatus.Grow;
+                if (ResourceTracker.Branch > 0)
+                    Status = GameStatus.Grow;
+                else
+                    Status = GameStatus.End;
             }
 
             await UniTask.NextFrame();
