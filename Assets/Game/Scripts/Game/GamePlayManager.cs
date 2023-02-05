@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.SceneManagement;
 
 public class GamePlayManager : MonoBehaviour
 {
@@ -43,7 +42,7 @@ public class GamePlayManager : MonoBehaviour
         ResourceTracker.ResourceExhausted += _OnResourceExhausted;
 
         levelMapGenerator.Init(GameSetting);
-        EncounterManager.PrepareAll(ResourceTracker, CameraManager, levelMapGenerator);
+        EncounterManager.PrepareAll(ResourceTracker, CameraManager, levelMapGenerator, GamePlayPanel);
         EncounterManager.OnRootCrash += _OnRootCrash;
 
         RootController.OnGrowAction += _OnRootAction;

@@ -21,17 +21,24 @@ public class EncounterEventData
 
 public sealed class EncounterManager : MonoBehaviour
 {
-    public GameObject[] ItemTemplates;
     [SerializeField] private GameObject _tilesRoot;
     [SerializeField] private GameObject _dirtTilePrefab;
+    [SerializeField] private Transform _waterDisplay;
+    [SerializeField] private Transform _fertilizerDisplay;
+    [SerializeField] private Transform _timeDisplay;
+
     private readonly List<TerrainTile> _existedTiles = new List<TerrainTile>();
-
     private ResourceTracker _resourceTracker;
-
     private float _yCameraDelta;
     public event Action OnRootCrash;
 
-    public void PrepareAll(ResourceTracker resourceTracker, CameraManager cameraManager, LevelMapGenerator levelMapGenerator)
+    public void PrepareAll
+    (
+        ResourceTracker resourceTracker, 
+        CameraManager cameraManager, 
+        LevelMapGenerator levelMapGenerator,
+        GamePlayPanel panel
+    )
     {
         _resourceTracker = resourceTracker;
 
@@ -66,6 +73,7 @@ public sealed class EncounterManager : MonoBehaviour
 
         void OnTriggerEvent(EncounterEventData data)
         {
+            panel.Collided = true;
             switch (data.Type)
             {
                 case EncounterType.Water:
@@ -83,6 +91,8 @@ public sealed class EncounterManager : MonoBehaviour
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            panel.Collided = false;
         }
     }
 
