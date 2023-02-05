@@ -18,13 +18,13 @@ MonoBehaviour:
     AudioVolume: 1
   - Type: 2
     AudioClip: {fileID: 8300000, guid: 6eb5ec26a1af2461b9e5d076be591084, type: 3}
-    AudioVolume: 0.35
+    AudioVolume: 0.2
   - Type: 3
     AudioClip: {fileID: 8300000, guid: fbabbe2bbe4c04d3cac06def2819527e, type: 3}
-    AudioVolume: 1
+    AudioVolume: 0.6
   - Type: 4
     AudioClip: {fileID: 8300000, guid: 14a537ad7722644c492e4a7499711fac, type: 3}
-    AudioVolume: 1
+    AudioVolume: 0.8
   - Type: 5
     AudioClip: {fileID: 8300000, guid: 8a802e8998eb74e63865819dea9f737a, type: 3}
     AudioVolume: 1
