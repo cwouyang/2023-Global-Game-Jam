@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Cysharp.Threading.Tasks;
 
 public class HomeManager : MonoBehaviour
 {
@@ -12,19 +13,24 @@ public class HomeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enterGameButton.onClick.AddListener(() => SceneTransitionManager.Instance.SwitchScene(SceneType.Game));
+        enterGameButton.onClick.AddListener(() => EnterGame());
     }
 
-    public void LoadScene(string scene_name)
+    private void EnterGame()
     {
-        SceneManager.LoadScene(scene_name);
+        StartCoroutine(EnterScenePerform());
     }
 
+    private IEnumerator EnterScenePerform()
+    {
+        CameraEffectController.Instance.StartFadeOut(1f);
+        yield return new WaitForSeconds(1);
+        SceneTransitionManager.Instance.SwitchScene(SceneType.Game);
+    }
 
     // Update is called once per frame
     void Update()
     {
-        Application.Quit();
 
     }
 }

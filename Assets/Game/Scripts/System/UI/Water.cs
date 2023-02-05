@@ -13,7 +13,8 @@ public class Water : MonoBehaviour
 
     public void Init(ResourceTracker ResourceTracker, GameSetting gameSetting)
     {
-            _resourceTracker = ResourceTracker;
+        _resourceTracker = ResourceTracker;
+        slider.value = ResourceTracker.Water;
         slider.maxValue = gameSetting.WaterLimit;
 
             _resourceTracker.ResourceValueChanged += (sender, args) =>

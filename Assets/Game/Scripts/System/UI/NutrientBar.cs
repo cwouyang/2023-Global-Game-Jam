@@ -14,6 +14,7 @@ public class NutrientBar : MonoBehaviour
     public void Init(ResourceTracker ResourceTracker, GameSetting gameSetting)
     {
         _resourceTracker = ResourceTracker;
+        slider.value = ResourceTracker.Energy;
         slider.maxValue = gameSetting.EnergyLimit;
 
         _resourceTracker.ResourceValueChanged += (sender, args) =>

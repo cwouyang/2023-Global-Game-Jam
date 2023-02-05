@@ -15,11 +15,11 @@ public static class TierComputer
         ulong totalScore = tracker.Energy + tracker.Water + tracker.Fertilizer;
         var tier = Tier.F;
 
-        if (totalScore > 270)
+        if (totalScore > 240)
             tier = Tier.S;
-        else if (totalScore > 240)
+        else if (totalScore > 200)
             tier = Tier.A;
-        else if (totalScore > 270)
+        else if (totalScore > 150)
             tier = Tier.B;
         else if (totalScore > 100)
             tier = Tier.C;

@@ -49,6 +49,15 @@ public class RootTop : MonoBehaviour
         if (position.y > initPosY)
             position.y = initPosY;
 
+        if (position.x > 9f)
+        {
+            position.x = 9f;
+        }
+        else if (position.x < -9f)
+        {
+            position.x = -9f;
+        }
+
         var posYChangeAmount = position.y - transform.position.y;
         OnPositionYChange?.Invoke(posYChangeAmount);
         transform.DOMove(position, Config.ROOT_GROW_PERFORM_TIME).SetEase(Ease.Linear)

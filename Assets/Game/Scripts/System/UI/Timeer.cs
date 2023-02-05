@@ -10,6 +10,7 @@ public class Timeer : MonoBehaviour
 
     public void Init(ResourceTracker ResourceTracker)
     {
+        timeValue = ResourceTracker.Time;
         ResourceTracker.ResourceValueChanged += (sender, args) =>
         {
             switch (args.NewValue)

@@ -13,6 +13,7 @@ public class CrisBar : MonoBehaviour
     public void Init(ResourceTracker ResourceTracker, GameSetting gameSetting)
     {
         _resourceTracker = ResourceTracker;
+        slider.value = ResourceTracker.Fertilizer;
         slider.maxValue = gameSetting.FertilizeLimit;
 
         _resourceTracker.ResourceValueChanged += (sender, args) =>

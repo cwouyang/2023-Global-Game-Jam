@@ -17,11 +17,20 @@ MonoBehaviour:
     AudioClip: {fileID: 8300000, guid: 49ea38ff8277d4f8a8ca6a1668014420, type: 3}
     AudioVolume: 1
   - Type: 2
-    AudioClip: {fileID: 8300000, guid: a7037e587d1c84e6786efe839373aeaa, type: 3}
-    AudioVolume: 1
+    AudioClip: {fileID: 8300000, guid: 6eb5ec26a1af2461b9e5d076be591084, type: 3}
+    AudioVolume: 0.35
   - Type: 3
     AudioClip: {fileID: 8300000, guid: fbabbe2bbe4c04d3cac06def2819527e, type: 3}
     AudioVolume: 1
   - Type: 4
     AudioClip: {fileID: 8300000, guid: 14a537ad7722644c492e4a7499711fac, type: 3}
+    AudioVolume: 1
+  - Type: 5
+    AudioClip: {fileID: 8300000, guid: 8a802e8998eb74e63865819dea9f737a, type: 3}
+    AudioVolume: 1
+  - Type: 6
+    AudioClip: {fileID: 8300000, guid: 40cfba9537a374138a9a2fba5817677d, type: 3}
+    AudioVolume: 0.5
+  - Type: 7
+    AudioClip: {fileID: 8300000, guid: 4bfb0bc71a888004d9fc485cf5b4edd3, type: 3}
     AudioVolume: 1

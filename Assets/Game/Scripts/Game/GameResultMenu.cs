@@ -21,8 +21,16 @@ public class GameResultMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _homeButton.onClick.AddListener(() => SceneTransitionManager.Instance.SwitchScene(SceneType.Home));
-        _replayButton.onClick.AddListener(() => SceneTransitionManager.Instance.SwitchScene(SceneType.Game));
+        _homeButton.onClick.AddListener(() =>
+        {
+            SceneTransitionManager.Instance.SwitchScene(SceneType.Home);
+            AudioManager.Instance.PlaySFX(ESoundEffectType.Click);
+        });
+
+        _replayButton.onClick.AddListener(() => {
+            SceneTransitionManager.Instance.SwitchScene(SceneType.Game);
+            AudioManager.Instance.PlaySFX(ESoundEffectType.Click);
+        });
 
         _contentGroup.alpha = 0f;
         _maskGroup.alpha = 0f;

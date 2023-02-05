@@ -2,6 +2,14 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using DG.Tweening;
 
+public enum GameOverReason
+{
+    Time = 0,
+    Water,
+    Energy,
+    Branch,
+}
+
 public class GamePlayManager : MonoBehaviour
 {
     public GameSetting GameSetting;
@@ -12,21 +20,24 @@ public class GamePlayManager : MonoBehaviour
     public TreeGirl TreeGirl;
     public GameResultMenu GameResultMenu;
 
+    private GameOverReason _gameOverReason;
+
     [SerializeField] private Life _lifeController;
 
     public ParticleSystem EvolveParticle;
     public LevelMapGenerator levelMapGenerator; 
 
-    [SerializeField] private CanvasGroup GameplayUi;
+    [SerializeField] private AudioSource _bgm;
 
     private ResourceTracker ResourceTracker;
+
+    private string _loseReasonString = "";
 
     public GameStatus Status;
     public EndType EndType;
 
     async void Start()
-    {
-        GameplayUi.alpha = 0;
+    { 
         Play();
     }
 
@@ -48,6 +59,7 @@ public class GamePlayManager : MonoBehaviour
         RootController.OnGrowAction += _OnRootAction;
         RootController.OnRootCrash += _OnRootCrash;
 
+        GamePlayPanel.Init(ResourceTracker, GameSetting);
 
         await UniTask.WhenAll(GamePlayTask(), TimerTask());
     }
@@ -91,17 +103,13 @@ public class GamePlayManager : MonoBehaviour
         await CameraManager.EnterStageCameraPerform();
         Status = GameStatus.Grow;
 
-        GamePlayPanel.Init(ResourceTracker, GameSetting);
-
-        DOTween.To(() => GameplayUi.alpha, x => GameplayUi.alpha = x, 1f, 0.5f);
-
+        GamePlayPanel.ShowPanel();
         await UniTask.Delay(System.TimeSpan.FromSeconds(0.5f));
     }
 
     private async UniTask GamePlayMain()
     {
         RootController.StartGrow();
-        GamePlayPanel.ShowPanel();
         while (Status != GameStatus.End)
         {
             if (Status == GameStatus.Grow)
@@ -117,22 +125,28 @@ public class GamePlayManager : MonoBehaviour
             await UniTask.NextFrame();
         }
         RootController.StopGrow();
-        GamePlayPanel.HidePanel();
     }
 
     private async UniTask DisplayEnd()
     {
         GamePlayPanel.HidePanel();
-        DOTween.To(() => GameplayUi.alpha, x => GameplayUi.alpha = x, 0f, 0.5f);
-
 
         TierComputer.Tier tier = TierComputer.Run(ResourceTracker);
         Debug.Log($"Final tier {tier.ToString()}");
 
         await UniTask.Delay(System.TimeSpan.FromSeconds(1));
+
+        _bgm.Stop();
+
+        RootController.OnGameEnd();
+
+        await CameraManager.ShowGameOverText(_gameOverReason);
+
         await CameraManager.ScrollToInitPos();
         EvolveParticle.Play();
+        AudioManager.Instance.PlaySFX(ESoundEffectType.Evolve);
         await UniTask.Delay(System.TimeSpan.FromSeconds(1));
+
         await TreeGirl.SetFinalAppearance(tier);
 
         await GameResultMenu.ShowMask();
@@ -191,21 +205,27 @@ public class GamePlayManager : MonoBehaviour
                 Status = GameStatus.End;
                 EndType = EndType.TimeOut;
                 Debug.Log("Status => End : TimeOut");
+
+                _gameOverReason = GameOverReason.Time;
                 break;
             case WaterResource water:
                 Status = GameStatus.End;
                 EndType = EndType.WaterOut;
                 Debug.Log("Status => End : WaterOut");
+
+                _gameOverReason = GameOverReason.Water;
                 break;
             case EnergyResource energy:
                 Status = GameStatus.End;
                 EndType = EndType.EnergyOut;
                 Debug.Log("Status => End : EnergyOut");
+                _gameOverReason = GameOverReason.Energy;
                 break;
             case BranchResource branch:
                 Status = GameStatus.End;
                 EndType = EndType.BranchOut;
                 Debug.Log("Status => End : BranchOut");
+                _gameOverReason = GameOverReason.Branch;
                 break;
         }
     }

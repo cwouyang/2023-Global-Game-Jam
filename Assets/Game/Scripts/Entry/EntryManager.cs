@@ -74,6 +74,10 @@ public class EntryManager : MonoBehaviour
             teamLogo.DOFade(1, 2);
             teamName.DOFade(1, 2);
 
+            yield return new WaitForSeconds(1f);
+
+            AudioManager.Instance.PlaySFX(ESoundEffectType.ShowTeamInfo);
+
             yield return new WaitForSeconds(3f);
 
             SceneTransitionManager.Instance.SwitchScene(SceneType.Home);

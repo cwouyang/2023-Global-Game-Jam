@@ -45,13 +45,13 @@ namespace Lapis.Extension
             switch (axis)
             {
                 case 'X':
-                    transform.localScale = new Vector3(amount, 1, 1);
+                    transform.localScale = new Vector3(amount, transform.localScale.y, transform.localScale.z);
                     break;
                 case 'Y':
-                    transform.localScale = new Vector3(1, amount, 1);
+                    transform.localScale = new Vector3(transform.localScale.x, amount, transform.localScale.z);
                     break;
                 case 'Z':
-                    transform.localScale = new Vector3(1, 1, amount);
+                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, amount);
                     break;
             }
         }

@@ -1,5 +1,7 @@
 using Cysharp.Threading.Tasks;
 
+using DG.Tweening;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +12,7 @@ public sealed class GamePlayPanel : MonoBehaviour
     public NutrientBar NutrientBar;
     public CrisBar CrisBar;
 
+    [SerializeField] private CanvasGroup GameplayUi;
     [SerializeField] private Text _waterChangeHintText;
     [SerializeField] private Text _energyChangeHintText;
     [SerializeField] private Text _fertilizerChangeHintText;
@@ -18,6 +21,7 @@ public sealed class GamePlayPanel : MonoBehaviour
 
     public void Init(ResourceTracker resourceTracker, GameSetting gameSetting)
     {
+        GameplayUi.alpha = 0;
         Water.Init(resourceTracker, gameSetting);
         Timeer.Init(resourceTracker);
         NutrientBar.Init(resourceTracker, gameSetting);
@@ -71,7 +75,7 @@ public sealed class GamePlayPanel : MonoBehaviour
                     targetText.enabled = true;
 
                     float delta = 0;
-                    while (delta < 3)
+                    while (delta < 2)
                     {
                         targetText.gameObject.transform.localPosition = new Vector2
                             (gameObjectTransform.localPosition.x, gameObjectTransform.localPosition.y + 0.05f);
@@ -87,7 +91,13 @@ public sealed class GamePlayPanel : MonoBehaviour
         };
     }
 
-    public void ShowPanel() { }
+    public void ShowPanel()
+    {  
+        DOTween.To(() => GameplayUi.alpha, x => GameplayUi.alpha = x, 1f, 0.5f);
+    }
 
-    public void HidePanel() { }
+    public void HidePanel()
+    {
+        DOTween.To(() => GameplayUi.alpha, x => GameplayUi.alpha = x, 0f, 0.5f); 
+    }
 }
