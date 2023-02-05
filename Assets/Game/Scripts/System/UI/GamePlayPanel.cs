@@ -13,6 +13,7 @@ public sealed class GamePlayPanel : MonoBehaviour
     public CrisBar CrisBar;
 
     [SerializeField] private CanvasGroup GameplayUi;
+    [SerializeField] private Text _timeChangeHintText;
     [SerializeField] private Text _waterChangeHintText;
     [SerializeField] private Text _energyChangeHintText;
     [SerializeField] private Text _fertilizerChangeHintText;
@@ -28,6 +29,7 @@ public sealed class GamePlayPanel : MonoBehaviour
         CrisBar.Init(resourceTracker, gameSetting);
 
         _waterChangeHintText.enabled = false;
+        _timeChangeHintText.enabled = false;
         _energyChangeHintText.enabled = false;
         _fertilizerChangeHintText.enabled = false;
 
@@ -42,6 +44,10 @@ public sealed class GamePlayPanel : MonoBehaviour
             Text targetText;
             switch (args.NewValue)
             {
+                case TimeResource w:
+                    diffValue = (int)w.Value - (int)((TimeResource)args.OldValue).Value;
+                    targetText = _timeChangeHintText;
+                    break;
                 case WaterResource w:
                     diffValue = (int)w.Value - (int)((WaterResource)args.OldValue).Value;
                     targetText = _waterChangeHintText;
