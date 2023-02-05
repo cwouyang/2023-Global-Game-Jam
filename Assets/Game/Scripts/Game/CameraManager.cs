@@ -33,6 +33,8 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Sprite _gameOverWaterSprite;
     [SerializeField] private Sprite _gameOverEnergySprite;
     [SerializeField] private Sprite _gameOverBranchSprite;
+    [SerializeField] private Sprite _gameOverCheatSprite;
+
 
     [SerializeField] float duration = 0.5f;
     [SerializeField] float strengh = 1f;
@@ -100,6 +102,10 @@ public class CameraManager : MonoBehaviour
             case GameOverReason.Branch:
                 _gameOverText.text = "樹根用完了！";
                 _gameOverImage.sprite = _gameOverBranchSprite;
+                break;
+            case GameOverReason.Cheat:
+                _gameOverText.text = "作弊仔==";
+                _gameOverImage.sprite = _gameOverCheatSprite;
                 break;
         }
 

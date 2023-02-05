@@ -8,6 +8,7 @@ public enum GameOverReason
     Water,
     Energy,
     Branch,
+    Cheat
 }
 
 public class GamePlayManager : MonoBehaviour
@@ -33,12 +34,21 @@ public class GamePlayManager : MonoBehaviour
 
     private string _loseReasonString = "";
 
+    private TierComputer.Tier _assignedTier = TierComputer.Tier.None;
+
     public GameStatus Status;
     public EndType EndType;
 
     async void Start()
     { 
         Play();
+    }
+
+    private void Update()
+    {
+#if UNITY_EDITOR
+        _DetectForceEndGameForDemo();
+#endif
     }
 
     public async void Play()
@@ -134,6 +144,9 @@ public class GamePlayManager : MonoBehaviour
         TierComputer.Tier tier = TierComputer.Run(ResourceTracker);
         Debug.Log($"Final tier {tier.ToString()}");
 
+        if (_assignedTier != TierComputer.Tier.None)
+            tier = _assignedTier;
+
         await UniTask.Delay(System.TimeSpan.FromSeconds(1));
 
         _bgm.Stop();
@@ -195,6 +208,30 @@ public class GamePlayManager : MonoBehaviour
             Status = GameStatus.Crash;
             Debug.Log("Status => Crash ");
         }
+    }
+
+    private void _DetectForceEndGameForDemo()
+    {
+        if (Status == GameStatus.Grow)
+        {
+            if (Input.GetKeyDown(KeyCode.Y))
+                SetTierAndEndGame(TierComputer.Tier.F);
+            else if (Input.GetKeyDown(KeyCode.U))
+                SetTierAndEndGame(TierComputer.Tier.C);
+            else if (Input.GetKeyDown(KeyCode.I))
+                SetTierAndEndGame(TierComputer.Tier.B);
+            else if (Input.GetKeyDown(KeyCode.O))
+                SetTierAndEndGame(TierComputer.Tier.A);
+            else if (Input.GetKeyDown(KeyCode.P))
+                SetTierAndEndGame(TierComputer.Tier.S);
+        }
+    }
+
+    private void SetTierAndEndGame(TierComputer.Tier tier)
+    {
+        _assignedTier = tier;
+        Status = GameStatus.End;
+        _gameOverReason = GameOverReason.Cheat;
     }
 
     private void _OnResourceExhausted(object sender, ResourceExhaustedEventArgs args)
