@@ -1084,6 +1084,7 @@ GameObject:
   - component: {fileID: 476971783}
   - component: {fileID: 476971785}
   - component: {fileID: 476971784}
+  - component: {fileID: 476971786}
   m_Layer: 5
   m_Name: GameOverText
   m_TagString: Untagged
@@ -1152,6 +1153,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 476971782}
   m_CullTransparentMesh: 1
+--- !u!114 &476971786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476971782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 10, y: 10}
+  m_UseGraphicAlpha: 1
 --- !u!1001 &488016280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3109,7 +3125,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 9b4adad315d394a22822ebc38fbe2956, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -3129,7 +3145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1134756080}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.17, z: 0}
+  m_LocalPosition: {x: 0, y: -1.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1670857823}
@@ -10650,9 +10666,9 @@ MonoBehaviour:
   _gameOverEnergySprite: {fileID: 21300000, guid: 18c9f32f6ac304bc081243ac31712f70, type: 3}
   _gameOverBranchSprite: {fileID: 21300000, guid: da8dcfcf2c419424a91ea3f504a60a4e, type: 3}
   _gameOverCheatSprite: {fileID: 21300000, guid: 85ad41fb3491043c6baeae675d35cbde, type: 3}
-  duration: 0.5
+  duration: 1
   strengh: 1
-  vibrato: 3
+  vibrato: 20
   randomness: 0
 --- !u!114 &2002963155
 MonoBehaviour:

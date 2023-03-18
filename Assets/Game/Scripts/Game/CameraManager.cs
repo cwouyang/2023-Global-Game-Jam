@@ -61,7 +61,8 @@ public class CameraManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.R))
+            SceneTransitionManager.Instance.SwitchScene(SceneType.Home);
     }
 
 
@@ -120,4 +121,6 @@ public class CameraManager : MonoBehaviour
     {
         transform.DOShakePosition(duration, strengh, vibrato, randomness);
     }
+
+
 }
